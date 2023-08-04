@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respuestas de Google Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        p {
+            text-align: center;
+            font-style: italic;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        .btn-file {
+            display: none;
+        }
+        #table-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Respuestas de Google Form</h1>
+    
+    <div class="container">
+        <div class="btn-container">
+            <button class="btn" id="generate-table-btn">Generar Tabla</button>
+            <label for="file-input" class="btn">Cargar Archivos</label>
+            <input type="file" id="file-input" class="btn-file" multiple>
+        </div>
+        
+        <div id="table-container" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        {% for header in data[0] %}
+                        <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data[1:] %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        {% if not data %}
+        <p>No hay datos disponibles.</p>
+        {% endif %}
+    </div>
+    
+    <script>
+        const generateTableBtn = document.getElementById('generate-table-btn');
+        const tableContainer = document.getElementById('table-container');
+        const fileInput = document.getElementById('file-input');
+        
+        generateTableBtn.addEventListener('click', () => {
+            tableContainer.style.display = 'block';
+        });
+        
+        fileInput.addEventListener('change', (event) => {
+            const fileList = event.target.files;
+            // Aquí puedes agregar lógica para manejar los archivos cargados
+        });
+    </script>
+</body>
+</html>
